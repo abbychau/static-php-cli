@@ -24,6 +24,9 @@ on:
       build-fpm:
         description: build fpm binary
         type: boolean
+      build-embed:
+        description: build embed C lib
+        type: boolean
       extensions:
         description: extensions to compile (comma separated)
         required: true
@@ -70,6 +73,8 @@ jobs:
         run: echo "SPC_BUILD_MICRO=--build-micro" >> $GITHUB_ENV
       - if: ${{ inputs.build-fpm == true }}
         run: echo "SPC_BUILD_FPM=--build-fpm" >> $GITHUB_ENV
+      - if: ${{ inputs.build-embed == true }}
+        run: echo "SPC_BUILD_FPM=--build-embed" >> $GITHUB_ENV
 
       # If there's no dependencies cache, fetch sources, with or without debug
       - if: steps.cache-download.outputs.cache-hit != 'true'
